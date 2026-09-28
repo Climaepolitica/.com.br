@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MINAMATA, ELEIÇÕES E O FUTURO DO BRASIL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,15 +19,11 @@
       --line: rgba(25, 23, 18, 0.16);
       --maxw: 780px;
       --theme: #b8402a;
+      font-family: 'Source Sans 3', sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
 
     body {
       margin: 0;
@@ -37,12 +33,11 @@
       font-size: 17px;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    h1,
-    h2,
-    h3,
-    .display {
+    h1, h2, h3, .display {
       font-family: 'Fraunces', serif;
       font-weight: 500;
       line-height: 1.08;
@@ -50,22 +45,20 @@
       color: var(--forest-deep);
     }
 
-    a {
-      color: var(--ember);
-    }
+    a { color: var(--ember); }
+    ::selection { background: var(--amber); color: var(--forest-deep); }
 
-    ::selection {
-      background: var(--amber);
-      color: var(--forest-deep);
+    .hl {
+      font-weight: 700;
+      color: var(--ember);
+      background: linear-gradient(to bottom, transparent 62%, rgba(200,147,47,0.35) 62%);
+      padding: 0 1px;
     }
 
     /* ---------- progress bar ---------- */
     #progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 0%;
+      position: fixed; top: env(safe-area-inset-top, 0px); left: 0;
+      height: 3px; width: 0%;
       background: var(--theme);
       z-index: 60;
       transition: background-color .4s ease;
@@ -73,12 +66,8 @@
 
     /* ---------- top bar ---------- */
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 16px 24px;
       background: rgba(242, 237, 224, 0.92);
       backdrop-filter: blur(6px);
@@ -86,171 +75,66 @@
     }
 
     .topbar .mark {
-      font-family: 'Fraunces', serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--forest-deep);
-      letter-spacing: -0.01em;
-      min-height: 1.4em;
+      font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.05rem;
+      color: var(--forest-deep); letter-spacing: -0.01em;
     }
+    .topbar .mark span { color: var(--ember); }
 
-    .topbar .mark span {
-      color: var(--ember);
-    }
-
-    .topbar nav {
-      display: none;
-      gap: 22px;
-    }
-
+    .topbar nav { display: none; gap: 22px; }
     .topbar nav a {
-      color: var(--ink);
-      text-decoration: none;
-      font-size: 0.92rem;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 2px;
+      color: var(--ink); text-decoration: none; font-size: 0.92rem;
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
       transition: border-color .3s ease, color .3s ease;
+      white-space: nowrap;
     }
-
-    .topbar nav a:hover {
-      border-bottom-color: var(--ember);
-    }
-
-    .topbar nav a.active {
-      color: var(--theme);
-      border-bottom-color: var(--theme);
-    }
+    .topbar nav a:hover { border-bottom-color: var(--ember); }
+    .topbar nav a.active { color: var(--theme); border-bottom-color: var(--theme); }
 
     .menu-btn {
-      background: none;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      background: none; border: 1px solid var(--line); border-radius: 6px;
+      width: 38px; height: 38px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 3px; cursor: pointer;
     }
-
-    .menu-btn {
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .menu-btn i {
-      display: block;
-      width: 16px;
-      height: 1.5px;
-      background: var(--ink);
-    }
+    .menu-btn i { display: block; width: 16px; height: 1.5px; background: var(--ink); }
 
     @media(min-width:900px) {
-      .topbar nav {
-        display: flex;
-      }
-
-      .menu-btn {
-        display: none;
-      }
+      .topbar nav { display: flex; }
+      .menu-btn { display: none; }
     }
 
     #mobileNav {
-      display: none;
-      flex-direction: column;
-      gap: 2px;
-      background: var(--paper);
-      border-bottom: 1px solid var(--line);
+      display: none; flex-direction: column; gap: 2px;
+      background: var(--paper); border-bottom: 1px solid var(--line);
       padding: 10px 24px 18px;
     }
-
-    #mobileNav.open {
-      display: flex;
-    }
-
+    #mobileNav.open { display: flex; }
     #mobileNav a {
-      padding: 10px 0;
-      text-decoration: none;
-      color: var(--ink);
-      border-bottom: 1px solid var(--line);
-      font-size: 0.98rem;
+      padding: 10px 0; text-decoration: none; color: var(--ink);
+      border-bottom: 1px solid var(--line); font-size: 0.98rem;
     }
-
-    @media(min-width:900px) {
-      #mobileNav {
-        display: none !important;
-      }
-    }
+    @media(min-width:900px) { #mobileNav { display: none !important; } }
 
     /* ---------- hero ---------- */
     .hero {
-      position: relative;
-      padding: 64px 24px 56px;
-      background: var(--forest-deep);
-      color: var(--paper);
-      overflow: hidden;
+      position: relative; padding: 64px 24px 56px;
+      background: var(--forest-deep); color: var(--paper); overflow: hidden;
     }
-
-    .hero-inner {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero .kicker {
-      font-size: 0.85rem;
-      color: var(--amber);
-      margin-bottom: 14px;
-      letter-spacing: 0.02em;
-      min-height: 1.2em;
-    }
-
+    .hero-inner { max-width: var(--maxw); margin: 0 auto; position: relative; z-index: 2; }
+    .hero .kicker { font-size: 0.85rem; color: var(--amber); margin-bottom: 14px; letter-spacing: 0.04em; text-transform: uppercase; }
     .hero h1 {
-      font-size: clamp(2.2rem, 6vw, 3.6rem);
-      color: var(--paper);
-      margin: 0 0 20px;
+      font-size: clamp(2rem, 6.4vw, 3.4rem);
+      color: var(--paper); margin: 0 0 20px;
     }
-
-    .hero p.lede {
-      font-size: 1.15rem;
-      max-width: 60ch;
-      color: rgba(242, 237, 224, 0.86);
-      margin: 0 0 26px;
-    }
-
+    .hero p.lede { font-size: 1.15rem; max-width: 60ch; color: rgba(242, 237, 224, 0.86); margin: 0 0 26px; }
     .hero .meta {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: 0.85rem;
-      color: rgba(242, 237, 224, 0.6);
-      border-top: 1px solid rgba(242, 237, 224, 0.2);
-      padding-top: 16px;
+      display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.85rem;
+      color: rgba(242, 237, 224, 0.6); border-top: 1px solid rgba(242, 237, 224, 0.2); padding-top: 16px;
     }
-
-    .hero-art {
-      position: absolute;
-      right: -8%;
-      top: -10%;
-      width: 60%;
-      max-width: 520px;
-      opacity: 0.9;
-      will-change: transform;
-    }
-
-    @media(max-width:820px) {
-      .hero-art {
-        display: none;
-      }
-    }
+    .hero-art { position: absolute; right: -8%; top: -10%; width: 60%; max-width: 520px; opacity: 0.9; will-change: transform; }
+    @media(max-width:820px) { .hero-art { display: none; } }
 
     /* ---------- layout ---------- */
-    main {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+    main { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 
     .chapter {
       padding: 64px 0 64px 22px;
@@ -259,273 +143,91 @@
       margin-left: -2px;
       transition: border-left-color .4s ease;
     }
-
-    .chapter:last-of-type {
-      border-bottom: none;
-    }
-
-    .chapter.active {
-      border-left-color: var(--chapter-color, var(--ember));
-    }
-
+    .chapter:last-of-type { border-bottom: none; }
+    .chapter.active { border-left-color: var(--chapter-color, var(--ember)); }
     .chapter .num {
-      font-family: 'Fraunces', serif;
-      font-size: 0.95rem;
-      color: var(--chapter-color, var(--ember));
-      margin-bottom: 8px;
+      font-family: 'Fraunces', serif; font-size: 0.95rem;
+      color: var(--chapter-color, var(--ember)); margin-bottom: 8px;
       transition: color .4s ease;
     }
-
-    .chapter h2 {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      margin: 0 0 22px;
-    }
-
-    .chapter p {
-      margin: 0 0 18px;
-      max-width: 66ch;
-    }
-
-    .chapter p:last-child {
-      margin-bottom: 0;
-    }
+    .chapter h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 22px; }
+    .chapter h3 { font-size: clamp(1.15rem, 3vw, 1.5rem); margin: 30px 0 14px; }
+    .chapter p { margin: 0 0 18px; max-width: 66ch; }
+    .chapter p:last-child { margin-bottom: 0; }
 
     .pull {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: var(--forest-deep);
-      border-left: 3px solid var(--ember);
-      padding: 4px 0 4px 20px;
-      margin: 28px 0;
-      max-width: 56ch;
+      font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem;
+      color: var(--forest-deep); border-left: 3px solid var(--ember);
+      padding: 4px 0 4px 20px; margin: 28px 0; max-width: 56ch;
     }
 
-    .fig {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      background: rgba(31, 59, 44, 0.06);
+    .list-clean { padding: 0; margin: 18px 0; list-style: none; }
+    .list-clean li { padding: 12px 0 12px 30px; border-top: 1px solid var(--line); position: relative; }
+    .list-clean li:before { content: "→"; position: absolute; left: 0; color: var(--ember); }
+    .list-clean li:last-child { border-bottom: 1px solid var(--line); }
+
+    .chart-fig {
+      margin: 30px 0;
+      background: rgba(31, 59, 44, 0.05);
       border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 18px 20px;
-      margin: 26px 0;
-    }
-
-    .fig svg {
-      flex: none;
-      width: 34px;
-      height: 34px;
-      margin-top: 2px;
-    }
-
-    .fig .fig-num {
-      font-family: 'Fraunces', serif;
-      font-size: 1.5rem;
-      color: var(--forest);
-    }
-
-    .fig .fig-label {
-      font-size: 0.88rem;
-      color: rgba(25, 23, 18, 0.65);
-      margin-top: 2px;
-    }
-
-    .stat-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin: 26px 0;
-    }
-
-    .stat {
-      flex: 1 1 160px;
-      background: var(--forest-deep);
-      color: var(--paper);
-      border-radius: 4px;
-      padding: 18px 18px 16px;
-    }
-
-    .stat .n {
-      font-family: 'Fraunces', serif;
-      font-size: 1.7rem;
-      display: block;
-      color: var(--amber);
-    }
-
-    .stat .l {
-      font-size: 0.82rem;
-      color: rgba(242, 237, 224, 0.75);
-    }
-
-    .list-clean {
-      padding: 0;
-      margin: 18px 0;
-      list-style: none;
-    }
-
-    .list-clean li {
-      padding: 12px 0 12px 30px;
-      border-top: 1px solid var(--line);
-      position: relative;
-    }
-
-    .list-clean li:before {
-      content: "→";
-      position: absolute;
-      left: 0;
-      color: var(--ember);
-    }
-
-    .list-clean li:last-child {
-      border-bottom: 1px solid var(--line);
-    }
-
-    /* ---------- image reveal ---------- */
-    .img-toggle {
-      margin-top: 22px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: none;
-      border: 1px solid var(--chapter-color, var(--ember));
-      color: var(--chapter-color, var(--ember));
-      border-radius: 100px;
-      padding: 9px 18px 9px 16px;
-      font-size: 0.86rem;
-      cursor: pointer;
-      font-family: 'Source Sans 3', sans-serif;
-      transition: background-color .25s ease, color .25s ease;
-    }
-
-    .img-toggle:hover {
-      background: var(--chapter-color, var(--ember));
-      color: var(--paper);
-    }
-
-    .img-toggle svg {
-      width: 13px;
-      height: 13px;
-      transition: transform .3s ease;
-    }
-
-    .img-toggle[aria-expanded="true"] svg {
-      transform: rotate(45deg);
-    }
-
-    .img-panel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .5s ease, margin-top .5s ease;
-    }
-
-    .img-panel.open {
-      max-height: 520px;
-      margin-top: 20px;
-    }
-
-    .img-panel figure {
-      margin: 0;
-    }
-
-    .img-panel img {
-      width: 100%;
-      height: auto;
-      max-height: 380px;
-      object-fit: cover;
       border-radius: 6px;
-      display: block;
+      padding: 20px 20px 16px;
+    }
+    .chart-fig .chart-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--forest-deep);
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+    .chart-legend {
+      display: flex; flex-wrap: wrap; gap: 14px 20px;
+      margin-bottom: 14px; font-size: 0.82rem; color: var(--ink);
+    }
+    .chart-legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .chart-legend i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+    .chart-fig svg { width: 100%; height: auto; display: block; }
+    .chart-fig figcaption {
+      font-size: 0.78rem; color: rgba(25, 23, 18, 0.55); margin-top: 10px;
     }
 
-    .img-panel figcaption {
-      font-size: 0.82rem;
-      color: rgba(25, 23, 18, 0.6);
-      margin-top: 10px;
+    .page-nav {
+      display: flex; justify-content: space-between; gap: 12px;
+      margin-top: 34px; padding-top: 24px; border-top: 1px solid var(--line);
     }
-
-    .img-panel figcaption a {
-      color: inherit;
+    .page-nav a {
+      text-decoration: none; color: var(--forest-deep); font-size: 0.9rem;
+      border: 1px solid var(--line); border-radius: 100px; padding: 9px 16px;
+      transition: border-color .25s ease, color .25s ease;
     }
+    .page-nav a:hover { border-color: var(--chapter-color, var(--ember)); color: var(--chapter-color, var(--ember)); }
 
     /* ---------- closing / cta ---------- */
-    .cta {
-      background: var(--ember);
-      color: var(--paper);
-      padding: 60px 24px;
-      text-align: left;
-    }
-
-    .cta-inner {
-      max-width: var(--maxw);
-      margin: 0 auto;
-    }
-
-    .cta h2 {
-      color: var(--paper);
-      font-size: clamp(1.6rem, 4vw, 2.3rem);
-      margin: 0 0 16px;
-    }
-
-    .cta p {
-      max-width: 60ch;
-      color: rgba(242, 237, 224, 0.92);
-      margin: 0 0 24px;
-    }
-
+    .cta { background: var(--ember); color: var(--paper); padding: 60px 24px; text-align: left; }
+    .cta-inner { max-width: var(--maxw); margin: 0 auto; }
+    .cta h2 { color: var(--paper); font-size: clamp(1.6rem, 4vw, 2.3rem); margin: 0 0 16px; }
+    .cta p { max-width: 60ch; color: rgba(242, 237, 224, 0.92); margin: 0 0 24px; }
     .cta button {
-      background: var(--paper);
-      color: var(--forest-deep);
-      border: none;
-      padding: 13px 22px;
-      font-size: 0.95rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
+      background: var(--paper); color: var(--forest-deep); border: none;
+      padding: 13px 22px; font-size: 0.95rem; border-radius: 4px; cursor: pointer; font-weight: 600;
     }
-
-    .cta button:hover {
-      background: var(--amber);
-    }
-
-    #shareMsg {
-      margin-top: 14px;
-      font-size: 0.88rem;
-      color: var(--paper);
-      min-height: 1.2em;
-    }
+    .cta button:hover { background: var(--amber); }
+    #shareMsg { margin-top: 14px; font-size: 0.88rem; color: var(--paper); min-height: 1.2em; }
 
     footer {
-      padding: 34px 24px;
-      text-align: left;
-      max-width: var(--maxw);
-      margin: 0 auto;
-      font-size: 0.82rem;
-      color: rgba(25, 23, 18, 0.55);
-      min-height: 1.2em;
+      padding: 34px 24px; text-align: left; max-width: var(--maxw); margin: 0 auto;
+      font-size: 0.82rem; color: rgba(25, 23, 18, 0.55);
+      padding-bottom: calc(34px + env(safe-area-inset-bottom, 0px));
     }
-
-    footer a {
-      color: var(--forest);
-    }
+    footer a { color: var(--forest); }
 
     @media(prefers-reduced-motion:no-preference) {
-      .chapter {
-        opacity: 0;
-        transform: translateY(14px);
-        transition: opacity .6s ease, transform .6s ease, border-left-color .4s ease;
-      }
-
-      .chapter.visible {
-        opacity: 1;
-        transform: none;
-      }
+      .chapter { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease, border-left-color .4s ease; }
+      .chapter.visible { opacity: 1; transform: none; }
     }
 
-    a:focus-visible,
-    button:focus-visible {
-      outline: 2px solid var(--ember);
-      outline-offset: 2px;
-    }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
   </style>
 </head>
 
@@ -534,14 +236,16 @@
   <div id="progress"></div>
 
   <div class="topbar">
-    <div class="mark"></div>
+    <div class="mark">MINAMATA</div>
     <nav id="desktopNav">
-      <a href="#pagina-1" data-target="pagina-1"></a>
+      <a href="#pagina-1" data-target="pagina-1">I — Minamata</a>
+      <a href="#pagina-2" data-target="pagina-2">II — Colapso Anunciado</a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false"><i></i><i></i><i></i></button>
   </div>
   <div id="mobileNav">
-    <a href="#pagina-1"></a>
+    <a href="#pagina-1">I — Minamata</a>
+    <a href="#pagina-2">II — Colapso Anunciado</a>
   </div>
 
   <section class="hero">
@@ -554,8 +258,8 @@
       <circle cx="170" cy="90" r="4" fill="#c8932f" />
     </svg>
     <div class="hero-inner">
-      <div class="kicker"></div>
-      <h1>Página 1</h1>
+      <h1></h1>
+      <div class="meta"><span>Página I de II</span><span>Leitura ~6 min</span></div>
     </div>
   </section>
 
@@ -563,55 +267,282 @@
 
     <article class="chapter" id="pagina-1" data-theme="#b8402a" style="--chapter-color:#b8402a">
       <div class="num">I</div>
-      <p>Ele desprezou a Organização Mundial da Saúde e fez tudo ao contrário (“máscaras são bobagem, faça aglomerações como eu, vão todos transar em ônibus bem cheios, e se contaminem, vendam produtos supérfluos — fechar lojas para quê?”) aumentando a contaminação.</p>
+      <h2 style="font-size: 60px; text-align: center;"><strong>MINAMATA, ELEIÇÕES E O FUTURO DO BRASIL</strong></h2>
+<br>
+<br>
+      <p style="font-size: 30px;">Por favor. <strong>Não vote</strong> sem ter conhecimento do conteúdo destas linhas. Não seja cúmplice de crimes que podem começar a acontecer a partir de janeiro de 2027.</p>
 
-      <p>E, no Ministério da Saúde, nenhum médico chefiando, só um general (Pazuello) que nada entendia de medicina, que obedecia a ele (“vamos levar cloroquina para Manaus, oxigênio só se precisar” — resultado: mortes aos milhares na cidade.</p>
+      <p style="font-size: 30px;">Está em curso no Brasil um projeto visando <strong>um verdadeiro golpe novamente</strong>.</p>
 
-      <p>Hoje, o Brasil é o 2º país do mundo com mais mortes por Covid (embora só seja o 7º em população). Está entre os 15 países (de um total de 195 nações) que pior enfrentaram a Covid. Das 680.000 mortes, Bolsonaro é responsável por pelo menos 200.000.</p>
+      <p style="font-size: 30px;">Não é um golpe contra as Instituições Democráticas, mas contra você , seus descendentes (filhos, netos, etc.) , contra os habitantes do Brasil e do mundo.</p>
 
-      <p>E o atraso na vacinação?</p>
+      <h3>Minamata</h3>
 
-      <p>Mas a ignorância de Bolsonaro não para por aí: ela vai também piorar o enfrentamento de uma verdadeira tragédia para o Brasil e para toda a Terra: as mudanças climáticas, o aquecimento global.</p>
+      <p>Você sabe o que é Minamata? É o nome de uma cidade do Japão, onde , durante anos , uma empresa de produtos químicos jogou <strong>metil-mercúrio</strong> na baía de Minamata.</p>
 
-      <p>Como na Covid, ele continua afrontando tudo o que a Ciência já verificou ser verdadeiro (prever o aquecimento global há 37 anos) e agora prever tragédias climáticas (já acontecendo) que terão cada vez mais intensidade e maior frequência.</p>
+      <p>Esse composto do <strong>mercúrio envenenou 50.000 habitantes</strong> , algumas centenas deles de forma muito grave. O mercúrio acumulou-se nos peixes e mariscos , base da alimentação dos habitantes, e surgiram várias doenças : perda de visão ; perda de coordenação motora ; surdez; paralisia; debilidade mental ; e morte. Em 1956 já estavam nascendo crianças com <strong>danos neurológicos irreversíveis</strong> — ou seja , para toda a vida (transmissão do sangue envenenado da mãe para o feto).</p>
 
-      <p>Por isso, dos 20 países mais desenvolvidos (o G-20), o Brasil foi o único que aumentou a emissão dos gases do efeito estufa em 2021 — pelo fato de Bolsonaro querer fazer a exploração da floresta amazônica de modo não sustentável. Como?</p>
+      <p>Mas o nosso presidente Jair Bolsonaro , de 2019 a 2022 , repetiu tudo o que a empresa japonesa fez — mas já sabendo das consequências.</p>
+
+      <p>Você sabe que , para separar o ouro de outros minerais , é preciso o uso do mercúrio ?</p>
+
+      <p>Mas para Bolsonaro a mineração , o ouro , é mais importante que <strong>a saúde e a vida dos índios da Amazônia e dos povos ribeirinhos</strong>.</p>
+
+      <p>Assim Bolsonaro recebeu garimpeiros no Palácio do Planalto. Permitiu a invasão de terras indígenas (Yanomami , em Roraima , e outras). E desmontou os órgãos de proteção ambiental.</p>
+
+      <p>Com qual objetivo ? Se os índios ficam doentes e até morrem , fica mais difícil para eles se defenderem das invasões de garimpeiros , madeireiros e grileiros.</p>
+
+      <p>Com as invasões de garimpeiros , os índios são envenenados pelo mercúrio , quando comem os peixes. Com o barulho de máquinas muito grandes , usadas no garimpo , a caça , que é a segunda base de proteínas dos indígenas , foge.</p>
+
+      <p>E com os madeireiros , a sua vida também fica mais pobre. Árvores têm frutos , colmeias , macacos , pássaros , flores ; e animais , fonte de proteínas — pois ele não quer respeitar as leis (só as que saem da sua cabeça).</p>
+
+      <figure class="chart-fig">
+        <div class="chart-title">Eventos climáticos extremos no mundo, desde 1980</div>
+        <div class="chart-legend">
+          <span><i style="background:#c0392b"></i>Geofísicos (terremotos, tsunamis, vulcões)</span>
+          <span><i style="background:#6a9e3f"></i>Meteorológicos (tempestades e furacões)</span>
+          <span><i style="background:#6a3d9a"></i>Hidrológicos (enchentes)</span>
+          <span><i style="background:#2f8fc4"></i>Climatológicos (temperaturas extremas, secas, queimadas)</span>
+        </div>
+<svg viewBox="0 0 920 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico: eventos climáticos extremos no mundo desde 1980, por tipo">
+<style>.axl{font:11px "Source Sans 3",sans-serif;fill:#5b564a;} .gl{stroke:rgba(25,23,18,0.14);stroke-width:1;} .ax{stroke:rgba(25,23,18,0.35);stroke-width:1;}</style>
+<line x1="46" y1="406.0" x2="910" y2="406.0" class="gl"/>
+<text x="38" y="409.0" text-anchor="end" class="axl">0</text>
+<line x1="46" y1="356.5" x2="910" y2="356.5" class="gl"/>
+<text x="38" y="359.5" text-anchor="end" class="axl">100</text>
+<line x1="46" y1="307.0" x2="910" y2="307.0" class="gl"/>
+<text x="38" y="310.0" text-anchor="end" class="axl">200</text>
+<line x1="46" y1="257.5" x2="910" y2="257.5" class="gl"/>
+<text x="38" y="260.5" text-anchor="end" class="axl">300</text>
+<line x1="46" y1="208.0" x2="910" y2="208.0" class="gl"/>
+<text x="38" y="211.0" text-anchor="end" class="axl">400</text>
+<line x1="46" y1="158.5" x2="910" y2="158.5" class="gl"/>
+<text x="38" y="161.5" text-anchor="end" class="axl">500</text>
+<line x1="46" y1="109.0" x2="910" y2="109.0" class="gl"/>
+<text x="38" y="112.0" text-anchor="end" class="axl">600</text>
+<line x1="46" y1="59.5" x2="910" y2="59.5" class="gl"/>
+<text x="38" y="62.5" text-anchor="end" class="axl">700</text>
+<line x1="46" y1="10.0" x2="910" y2="10.0" class="gl"/>
+<text x="38" y="13.0" text-anchor="end" class="axl">800</text>
+<line x1="46" y1="10" x2="46" y2="406" class="ax"/>
+<line x1="46" y1="406" x2="910" y2="406" class="ax"/>
+<rect x="49.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="49.4" y="331.8" width="17.3" height="69.3" fill="#6a9e3f"/>
+<rect x="49.4" y="297.1" width="17.3" height="34.6" fill="#6a3d9a"/>
+<rect x="49.4" y="287.2" width="17.3" height="9.9" fill="#2f8fc4"/>
+<text x="58.0" y="422" text-anchor="middle" class="axl">1980</text>
+<rect x="73.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="73.4" y="329.3" width="17.3" height="71.8" fill="#6a9e3f"/>
+<rect x="73.4" y="289.7" width="17.3" height="39.6" fill="#6a3d9a"/>
+<rect x="73.4" y="279.8" width="17.3" height="9.9" fill="#2f8fc4"/>
+<rect x="97.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="97.4" y="331.8" width="17.3" height="69.3" fill="#6a9e3f"/>
+<rect x="97.4" y="289.7" width="17.3" height="42.1" fill="#6a3d9a"/>
+<rect x="97.4" y="279.8" width="17.3" height="9.9" fill="#2f8fc4"/>
+<rect x="121.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="121.4" y="329.3" width="17.3" height="71.8" fill="#6a9e3f"/>
+<rect x="121.4" y="287.2" width="17.3" height="42.1" fill="#6a3d9a"/>
+<rect x="121.4" y="274.8" width="17.3" height="12.4" fill="#2f8fc4"/>
+<rect x="145.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="145.4" y="326.8" width="17.3" height="74.2" fill="#6a9e3f"/>
+<rect x="145.4" y="277.3" width="17.3" height="49.5" fill="#6a3d9a"/>
+<rect x="145.4" y="262.5" width="17.3" height="14.8" fill="#2f8fc4"/>
+<rect x="169.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="169.4" y="341.6" width="17.3" height="59.4" fill="#6a9e3f"/>
+<rect x="169.4" y="311.9" width="17.3" height="29.7" fill="#6a3d9a"/>
+<rect x="169.4" y="304.5" width="17.3" height="7.4" fill="#2f8fc4"/>
+<text x="178.0" y="422" text-anchor="middle" class="axl">1985</text>
+<rect x="193.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="193.4" y="331.8" width="17.3" height="69.3" fill="#6a9e3f"/>
+<rect x="193.4" y="299.6" width="17.3" height="32.2" fill="#6a3d9a"/>
+<rect x="193.4" y="289.7" width="17.3" height="9.9" fill="#2f8fc4"/>
+<rect x="217.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="217.4" y="324.3" width="17.3" height="74.2" fill="#6a9e3f"/>
+<rect x="217.4" y="279.8" width="17.3" height="44.6" fill="#6a3d9a"/>
+<rect x="217.4" y="269.9" width="17.3" height="9.9" fill="#2f8fc4"/>
+<rect x="241.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="241.4" y="314.4" width="17.3" height="84.1" fill="#6a9e3f"/>
+<rect x="241.4" y="250.1" width="17.3" height="64.3" fill="#6a3d9a"/>
+<rect x="241.4" y="235.2" width="17.3" height="14.9" fill="#2f8fc4"/>
+<rect x="265.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="265.4" y="319.4" width="17.3" height="79.2" fill="#6a9e3f"/>
+<rect x="265.4" y="262.5" width="17.3" height="56.9" fill="#6a3d9a"/>
+<rect x="265.4" y="247.6" width="17.3" height="14.9" fill="#2f8fc4"/>
+<rect x="289.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="289.4" y="331.8" width="17.3" height="69.3" fill="#6a9e3f"/>
+<rect x="289.4" y="292.1" width="17.3" height="39.6" fill="#6a3d9a"/>
+<rect x="289.4" y="282.2" width="17.3" height="9.9" fill="#2f8fc4"/>
+<text x="298.0" y="422" text-anchor="middle" class="axl">1990</text>
+<rect x="313.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="313.4" y="319.4" width="17.3" height="79.2" fill="#6a9e3f"/>
+<rect x="313.4" y="260.0" width="17.3" height="59.4" fill="#6a3d9a"/>
+<rect x="313.4" y="245.1" width="17.3" height="14.9" fill="#2f8fc4"/>
+<rect x="337.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="337.4" y="311.9" width="17.3" height="86.6" fill="#6a9e3f"/>
+<rect x="337.4" y="242.7" width="17.3" height="69.3" fill="#6a3d9a"/>
+<rect x="337.4" y="225.3" width="17.3" height="17.3" fill="#2f8fc4"/>
+<rect x="361.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="361.4" y="316.9" width="17.3" height="81.7" fill="#6a9e3f"/>
+<rect x="361.4" y="252.5" width="17.3" height="64.3" fill="#6a3d9a"/>
+<rect x="361.4" y="237.7" width="17.3" height="14.8" fill="#2f8fc4"/>
+<rect x="385.4" y="396.1" width="17.3" height="9.9" fill="#c0392b"/>
+<rect x="385.4" y="292.1" width="17.3" height="104.0" fill="#6a9e3f"/>
+<rect x="385.4" y="188.2" width="17.3" height="103.9" fill="#6a3d9a"/>
+<rect x="385.4" y="168.4" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="409.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="409.4" y="304.5" width="17.3" height="94.1" fill="#6a9e3f"/>
+<rect x="409.4" y="208.0" width="17.3" height="96.5" fill="#6a3d9a"/>
+<rect x="409.4" y="188.2" width="17.3" height="19.8" fill="#2f8fc4"/>
+<text x="418.0" y="422" text-anchor="middle" class="axl">1995</text>
+<rect x="433.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="433.4" y="302.1" width="17.3" height="96.5" fill="#6a9e3f"/>
+<rect x="433.4" y="203.1" width="17.3" height="99.0" fill="#6a3d9a"/>
+<rect x="433.4" y="183.2" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="457.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="457.4" y="309.5" width="17.3" height="89.1" fill="#6a9e3f"/>
+<rect x="457.4" y="217.9" width="17.3" height="91.6" fill="#6a3d9a"/>
+<rect x="457.4" y="198.1" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="481.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="481.4" y="314.4" width="17.3" height="84.1" fill="#6a9e3f"/>
+<rect x="481.4" y="230.3" width="17.3" height="84.2" fill="#6a3d9a"/>
+<rect x="481.4" y="210.5" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="505.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="505.4" y="304.5" width="17.3" height="94.1" fill="#6a9e3f"/>
+<rect x="505.4" y="208.0" width="17.3" height="96.5" fill="#6a3d9a"/>
+<rect x="505.4" y="188.2" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="529.4" y="396.1" width="17.3" height="9.9" fill="#c0392b"/>
+<rect x="529.4" y="292.1" width="17.3" height="104.0" fill="#6a9e3f"/>
+<rect x="529.4" y="183.2" width="17.3" height="108.9" fill="#6a3d9a"/>
+<rect x="529.4" y="163.4" width="17.3" height="19.8" fill="#2f8fc4"/>
+<text x="538.0" y="422" text-anchor="middle" class="axl">2000</text>
+<rect x="553.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="553.4" y="309.5" width="17.3" height="89.1" fill="#6a9e3f"/>
+<rect x="553.4" y="217.9" width="17.3" height="91.6" fill="#6a3d9a"/>
+<rect x="553.4" y="198.1" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="577.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="577.4" y="311.9" width="17.3" height="86.6" fill="#6a9e3f"/>
+<rect x="577.4" y="222.8" width="17.3" height="89.1" fill="#6a3d9a"/>
+<rect x="577.4" y="203.1" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="601.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="601.4" y="314.4" width="17.3" height="84.1" fill="#6a9e3f"/>
+<rect x="601.4" y="225.3" width="17.3" height="89.1" fill="#6a3d9a"/>
+<rect x="601.4" y="205.5" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="625.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="625.4" y="316.9" width="17.3" height="81.7" fill="#6a9e3f"/>
+<rect x="625.4" y="235.2" width="17.3" height="81.7" fill="#6a3d9a"/>
+<rect x="625.4" y="215.4" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="649.4" y="401.1" width="17.3" height="4.9" fill="#c0392b"/>
+<rect x="649.4" y="326.8" width="17.3" height="74.2" fill="#6a9e3f"/>
+<rect x="649.4" y="262.5" width="17.3" height="64.3" fill="#6a3d9a"/>
+<rect x="649.4" y="242.7" width="17.3" height="19.8" fill="#2f8fc4"/>
+<text x="658.0" y="422" text-anchor="middle" class="axl">2005</text>
+<rect x="673.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="673.4" y="314.4" width="17.3" height="84.1" fill="#6a9e3f"/>
+<rect x="673.4" y="225.3" width="17.3" height="89.1" fill="#6a3d9a"/>
+<rect x="673.4" y="205.5" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="697.4" y="396.1" width="17.3" height="9.9" fill="#c0392b"/>
+<rect x="697.4" y="267.4" width="17.3" height="128.7" fill="#6a9e3f"/>
+<rect x="697.4" y="168.4" width="17.3" height="99.0" fill="#6a3d9a"/>
+<rect x="697.4" y="151.1" width="17.3" height="17.3" fill="#2f8fc4"/>
+<rect x="721.4" y="396.1" width="17.3" height="9.9" fill="#c0392b"/>
+<rect x="721.4" y="272.4" width="17.3" height="123.8" fill="#6a9e3f"/>
+<rect x="721.4" y="175.8" width="17.3" height="96.5" fill="#6a3d9a"/>
+<rect x="721.4" y="156.0" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="745.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="745.4" y="294.6" width="17.3" height="103.9" fill="#6a9e3f"/>
+<rect x="745.4" y="203.1" width="17.3" height="91.6" fill="#6a3d9a"/>
+<rect x="745.4" y="183.2" width="17.3" height="19.8" fill="#2f8fc4"/>
+<rect x="769.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="769.4" y="284.7" width="17.3" height="113.8" fill="#6a9e3f"/>
+<rect x="769.4" y="185.7" width="17.3" height="99.0" fill="#6a3d9a"/>
+<rect x="769.4" y="163.4" width="17.3" height="22.3" fill="#2f8fc4"/>
+<text x="778.0" y="422" text-anchor="middle" class="axl">2010</text>
+<rect x="793.4" y="396.1" width="17.3" height="9.9" fill="#c0392b"/>
+<rect x="793.4" y="269.9" width="17.3" height="126.2" fill="#6a9e3f"/>
+<rect x="793.4" y="173.3" width="17.3" height="96.5" fill="#6a3d9a"/>
+<rect x="793.4" y="151.1" width="17.3" height="22.3" fill="#2f8fc4"/>
+<rect x="817.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="817.4" y="282.2" width="17.3" height="116.3" fill="#6a9e3f"/>
+<rect x="817.4" y="190.7" width="17.3" height="91.6" fill="#6a3d9a"/>
+<rect x="817.4" y="168.4" width="17.3" height="22.3" fill="#2f8fc4"/>
+<rect x="841.4" y="396.1" width="17.3" height="9.9" fill="#c0392b"/>
+<rect x="841.4" y="272.4" width="17.3" height="123.8" fill="#6a9e3f"/>
+<rect x="841.4" y="128.8" width="17.3" height="143.6" fill="#6a3d9a"/>
+<rect x="841.4" y="104.1" width="17.3" height="24.8" fill="#2f8fc4"/>
+<rect x="865.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="865.4" y="274.8" width="17.3" height="123.7" fill="#6a9e3f"/>
+<rect x="865.4" y="151.1" width="17.3" height="123.8" fill="#6a3d9a"/>
+<rect x="865.4" y="123.8" width="17.3" height="27.2" fill="#2f8fc4"/>
+<rect x="889.4" y="398.6" width="17.3" height="7.4" fill="#c0392b"/>
+<rect x="889.4" y="262.5" width="17.3" height="136.1" fill="#6a9e3f"/>
+<rect x="889.4" y="89.2" width="17.3" height="173.3" fill="#6a3d9a"/>
+<rect x="889.4" y="62.0" width="17.3" height="27.2" fill="#2f8fc4"/>
+<text x="898.0" y="422" text-anchor="middle" class="axl">2015</text>
+</svg>
+        <figcaption><strong>Fonte: Organização Meteorológica Mundial (OMM).</strong></figcaption>
+      </figure>
+
+      <p class="pull">Nas próximas semanas , detalharemos melhor estes fatos , que foram sendo noticiados pela imprensa nos 4 anos de Bolsonaro.</p>
+
+      <div class="page-nav">
+        <span></span>
+        <a href="#pagina-2">Ler página final : Colapso Anunciado →</a>
+      </div>
+    </article>
+
+    <article class="chapter" id="pagina-2" data-theme="#1f3b2c" style="--chapter-color:#1f3b2c">
+      <div class="num">II</div>
+      <h2>Colapso Anunciado</h2>
+
+      <p>Ele desprezou a Organização Mundial da Saúde e fez tudo ao contrário (“máscaras são bobagem , faça aglomerações como eu , vão todos transar em ônibus bem cheios , e se contaminem , vendam produtos supérfluos — fechar lojas para quê?”) aumentando a contaminação.</p>
+
+      <p>E , no Ministério da Saúde , nenhum médico chefiando , só um general (Pazuello) que nada entendia de medicina , que obedecia a ele (“vamos levar cloroquina para Manaus , oxigênio só se precisar” — resultado : mortes aos milhares na cidade.</p>
+
+      <p>Hoje , o Brasil é o <strong>2º país do mundo com mais mortes por Covid</strong> (embora só seja o 7º em população). Está entre os 15 países (de um total de 195 nações) que pior enfrentaram a Covid. Das 680.000 mortes , Bolsonaro é responsável por pelo menos <strong>200.000</strong>.</p>
+
+      <p>E o atraso na vacinação ?</p>
+
+      <p>Mas a ignorância de Bolsonaro não para por aí : ela vai também piorar o enfrentamento de uma verdadeira tragédia para o Brasil e para toda a Terra : as mudanças climáticas , o aquecimento global.</p>
+
+      <p>Como na Covid , ele continua afrontando tudo o que a Ciência já verificou ser verdadeiro (prever o aquecimento global há 37 anos) e agora prever tragédias climáticas (já acontecendo) que terão cada vez mais intensidade e maior frequência.</p>
+
+      <p>Por isso , dos 20 países mais desenvolvidos (o G-20) , o <strong>Brasil foi o único que aumentou a emissão dos gases do efeito estufa</strong> em 2021 — pelo fato de Bolsonaro querer fazer a exploração da floresta amazônica de modo não sustentável. Como ?</p>
 
       <ul class="list-clean">
-        <li>1 - Desmontar os órgãos de proteção do meio ambiente como o IBAMA e o ICMBio, com mais militares.</li>
-        <li>2 - Permitir a invasão de terras indígenas por garimpeiros, madeireiros e grileiros; extinguir órgãos da Funai.</li>
-        <li>3 - Os índios, como cultura, povos e tribos, vão ser exterminados, pois não vão poder mais viver a sua vida simples, que depende da existência da floresta: em um período de vários anos, eles reduziram a floresta em 2%, os brancos, com suas atividades, em 68%.</li>
+        <li>1 - Desmontar os órgãos de proteção do meio ambiente como o IBAMA e o ICMBio , com mais militares.</li>
+        <li>2 - Permitir a invasão de terras indígenas por garimpeiros , madeireiros e grileiros ; extinguir órgãos da Funai.</li>
+        <li>3 - Os índios , como cultura , povos e tribos , vão ser exterminados , pois não vão poder mais viver a sua vida simples , que depende da existência da floresta : em um período de vários anos , eles reduziram a floresta em 2% , os brancos , com suas atividades , em 68%.</li>
       </ul>
 
-      <p>Grande parte das chuvas (das quais dependem a agricultura e a pecuária em boa parte do Brasil) vem da transformação dos ventos úmidos trazidos do Atlântico, feita pela floresta, os quais entram na Amazônia, e depois vêm para o sul (veja “rios voadores” no Google).</p>
+      <p>Grande parte das chuvas (das quais dependem a agricultura e a pecuária em boa parte do Brasil) vem da transformação dos ventos úmidos trazidos do Atlântico , feita pela floresta , os quais entram na Amazônia , e depois vêm para o sul (veja “rios voadores” no Google).</p>
 
-      <p>Destruída a floresta (ou apenas uma parte dela), ela se transformará numa imensa savana (muito capim e poucas árvores), diminuindo muito as chuvas e prejudicando o próprio agronegócio, que apoia Bolsonaro. E uma enorme liberação de CO₂ (gás do efeito estufa), que se encontra retido nas árvores, aumentando o aquecimento na atmosfera.</p>
+      <p>Destruída a floresta (ou apenas uma parte dela) , ela se transformará numa imensa savana (muito capim e poucas árvores) , diminuindo muito as chuvas e prejudicando o próprio agronegócio , que apoia Bolsonaro. E uma enorme liberação de CO₂ (gás do efeito estufa) , que se encontra retido nas árvores , aumentando o aquecimento na atmosfera.</p>
 
-      <p>Tudo isso afeta o clima do Brasil e do mundo: já vimos neste ano (Dez. 21 a Jun. 22) uma amostra do que acontecerá no futuro: em todos os Estados da costa leste, houve enormes inundações, sobretudo na Bahia, Minas e Petrópolis-RJ, com 457 mortes. Motivo: as águas do Oceano Atlântico estão mais quentes (2º C), formando nuvens e chuvas muito maiores.</p>
+      <p>Tudo isso afeta o clima do Brasil e do mundo : já vimos neste ano (Dez. 21 a Jun. 22) uma amostra do que acontecerá no futuro : em todos os Estados da costa leste , houve enormes inundações , sobretudo na Bahia , Minas e Petrópolis-RJ , com 457 mortes. Motivo : as águas do Oceano Atlântico estão mais quentes (2º C), formando nuvens e chuvas muito maiores.</p>
 
-      <p>Este é um exemplo do descontrole do clima, ou seja, mudanças e eventos extremos, causando destruição e mortes.</p>
+      <p>Este é um exemplo do descontrole do clima , ou seja , mudanças e eventos extremos , causando destruição e mortes.</p>
 
-      <p>E a última notícia:</p>
+      <p>E a última notícia :</p>
 
-      <p>“As ondas de calor (se lembra do verão na Europa?) que estão ficando cada vez mais frequentes e intensas, tornando certos lugares na Terra impossíveis para a vida, “pois, dizem a ONU e a Cruz Vermelha, ‘existem limites, a partir dos quais humanos expostos ao calor e umidade extremos não conseguem sobreviver’” — mortes, migrações, caos em diversas partes do mundo. “E não há recursos para minorar todos esses problemas.”</p>
+      <p>“As ondas de calor (se lembra do verão na Europa?) que estão ficando cada vez mais frequentes e intensas , tornando certos lugares na Terra impossíveis para a vida , “pois , dizem a ONU e a Cruz Vermelha , ‘existem limites, a partir dos quais humanos expostos ao calor e umidade extremos não conseguem sobreviver’” — mortes , migrações , caos em diversas partes do mundo. “E não há recursos para minorar todos esses problemas.”</p>
 
-      <p>Vale lembrar que essas ondas de calor já ocorreram: em 2003 na Europa, com 70.000 mortes; e na Rússia, em 2010, com a morte de 55.000 pessoas.</p>
+      <p>Vale lembrar que essas ondas de calor já ocorreram : em 2003 na Europa, com 70.000 mortes ; e na Rússia , em 2010 , com a morte de 55.000 pessoas.</p>
 
-      <p>CONCLUSÃO:</p>
+      <p>CONCLUSÃO :</p>
 
-      <p>O nosso presidente está levando o Brasil (e o mundo também) a um suicídio climático. É este o cristianismo de Bolsonaro? Foi Cristo que disse: “Enriqueça, e, com o seu progresso, leve o mundo à destruição, pelo clima”. Ou: “Amai-vos uns aos outros”?</p>
+      <p>O nosso presidente está levando o Brasil (e o mundo também) a um <strong>suicídio climático</strong>. É este o cristianismo de Bolsonaro ? Foi Cristo que disse : “Enriqueça , e , com o seu progresso , leve o mundo à destruição , pelo clima”. Ou : “Amai-vos uns aos outros”?</p>
 
-      <p>Mas sabemos que a mente de Bolsonaro só trabalha em função do ouro, do dinheiro imediato.</p>
+      <p>Mas sabemos que a mente de Bolsonaro só trabalha em função do ouro , do dinheiro imediato.</p>
 
-      <p>Lembramos ainda que essas mudanças no clima não têm retorno, após um certo ponto; vão durar séculos.</p>
+      <p>Lembramos ainda que essas mudanças no clima não têm retorno, após um certo ponto ; vão durar séculos.</p>
 
       <p>SOLUÇÕES:</p>
 
       <p>É preciso pensar que outros países podem impor sanções comerciais, de exportação, sobre nossos produtos.</p>
 
-      <p>Respeitando a Natureza, as regras ambientais, continuaremos recebendo dinheiro de países como a Noruega e Alemanha (Fundo Amazônia), além de colaboração prometida pelo presidente Biden, dos Estados Unidos; e há ainda os créditos de carbono. Além disso, já existem estudos científicos apontando para soluções que vão gerar ainda mais dinheiro do que a agricultura e pecuária.</p>
+      <p>Respeitando a Natureza , as regras ambientais , continuaremos recebendo dinheiro de países como a Noruega e Alemanha (Fundo Amazônia), além de colaboração prometida pelo presidente Biden , dos Estados Unidos ; e há ainda os créditos de carbono. Além disso, já existem estudos científicos apontando para soluções que vão gerar ainda mais dinheiro do que a agricultura e pecuária.</p>
 
-      <p>Você pode achar que Lula, defendendo o meio ambiente com Marina Silva e Simone Tebet, pode ainda não merecer o seu voto; neste caso, vote em branco ou anule seu voto; mas não vote em Bolsonaro.</p>
+      <p>Você pode achar que Lula , defendendo o meio ambiente com Marina Silva e Simone Tebet , pode ainda não merecer o seu voto; neste caso, vote em branco ou anule seu voto ; mas não vote em Bolsonaro.</p>
 
       <p>Vote em homenagem aos órfãos que ficaram sem pai ou mãe, com a Covid. E lembre-se dos sequelados — até agora só um em cada quatro se recuperou totalmente.</p>
 
@@ -623,13 +554,19 @@
 
       <p>Se você aprova nossas ideias, faça tudo que puder para divulgá-las (cópias, internet, distribuir para todos).</p>
 
-      <p>Ainda dá tempo. Obrigado.</p>
+      <p class="pull">Ainda dá tempo. Obrigado.</p>
+
+      <div class="page-nav">
+        <a href="#pagina-1">← Voltar à página I: Minamata</a>
+        <span></span>
+      </div>
     </article>
 
-    <!-- Para adicionar um novo texto no futuro, duplique o bloco abaixo e cole aqui, alterando o id (ex: pagina-2), o número em .num e adicionando o link correspondente na navegação (topbar e mobileNav):
+    <!-- Para adicionar um novo texto no futuro, duplique o bloco abaixo, altere o id (ex: pagina-3), o número em .num,
+         a cor em data-theme/--chapter-color, e adicione o link correspondente na navegação (topbar e mobileNav):
 
-  <article class="chapter" id="pagina-2" data-theme="#1f3b2c" style="--chapter-color:#1f3b2c">
-    <div class="num">II</div>
+  <article class="chapter" id="pagina-3" data-theme="#c8932f" style="--chapter-color:#c8932f">
+    <div class="num">III</div>
     <p>...</p>
   </article>
 
@@ -645,7 +582,7 @@
     </div>
   </section>
 
-  <footer></footer>
+  <footer>Baseado em texto original de outubro de 2022, sobre clima, Amazônia e a pandemia. Compartilhe se concordar.</footer>
 
   <script>
     const menuBtn = document.getElementById('menuBtn');
@@ -711,18 +648,8 @@
       });
     }, { threshold: 0.5, rootMargin: '-40% 0px -40% 0px' });
     chapters.forEach(el => themeObserver.observe(el));
-
-    /* image accordion */
-    document.querySelectorAll('.img-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const panel = document.getElementById(btn.dataset.panel);
-        const open = panel.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-        btn.firstChild.textContent = open ? 'Ocultar imagem ' : 'Ver imagem ';
-      });
-    });
   </script>
 
 </body>
-
+  
 </html>
