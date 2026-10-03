@@ -229,6 +229,15 @@
 
     a:focus-visible, button:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
   </style>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18492661793"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18492661793');
+</script>
 </head>
 
 <body>
@@ -718,6 +727,8 @@
       });
     }, { threshold: 0.5, rootMargin: '-40% 0px -40% 0px' });
     chapters.forEach(el => themeObserver.observe(el));
+
+
   </script>
 
 </body>
