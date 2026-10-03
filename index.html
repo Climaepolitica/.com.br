@@ -702,7 +702,7 @@
 
     const themeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting) { 
           const color = entry.target.dataset.theme;
           document.documentElement.style.setProperty('--theme', color);
           chapters.forEach(c => c.classList.remove('active'));
